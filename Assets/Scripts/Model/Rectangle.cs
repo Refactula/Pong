@@ -45,4 +45,9 @@ public class Rectangle
         return Math.Min(Right, other.Right) > Math.Max(Left, other.Left) && 
                Math.Min(Top, other.Top) > Math.Max(Bottom, other.Bottom);
     }
+
+    public float GetHeight()
+    {
+        return Top - Bottom;
+    }
 }

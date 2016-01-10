@@ -7,8 +7,11 @@ public class MovingObject
     public float VelocityY;
     public bool Bounces;
 
-    public MovingObject(Rectangle shape, float velocityX, float velocityY)
+    private PongGame game;
+
+    public MovingObject(PongGame game, Rectangle shape, float velocityX, float velocityY)
     {
+        this.game = game;
         this.Shape = shape;
         this.VelocityX = velocityX;
         this.VelocityY = velocityY;
@@ -29,16 +32,16 @@ public class MovingObject
         Shape.MoveBy(VelocityX * deltaTime, VelocityY * deltaTime);
     }
 
-    public void PushOutOf(MovingObject other)
+    public bool PushOutOf(MovingObject other)
     {
-        PushOutOf(other.Shape);
+        return PushOutOf(other.Shape);
     }
 
-    public void PushOutOf(Rectangle rectangle)
+    public bool PushOutOf(Rectangle rectangle)
     {
         if (!Shape.Intersects(rectangle))
         {
-            return;
+            return false;
         }
         float horizontalCorrection = VelocityX < 0 ? rectangle.Right - Shape.Left : rectangle.Left - Shape.Right;
         float verticalCorrection = VelocityY < 0 ? rectangle.Top - Shape.Bottom : rectangle.Bottom - Shape.Top;
@@ -46,6 +49,13 @@ public class MovingObject
             OnHorizontalCollision(horizontalCorrection);
         else
             OnVerticalCollision(verticalCorrection);
+
+        return true;
+    }
+
+    public float GetHeight()
+    {
+        return Shape.GetHeight();
     }
 
     public void PushInto(Rectangle rectangle)
