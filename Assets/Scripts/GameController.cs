@@ -8,6 +8,8 @@ public class GameController : MonoBehaviour {
     public GameObject LeftPaddleObject;
     public GameObject RightPaddleObject;
 
+    public float PaddlesSpeed;
+
     private PongGame pongGame = new PongGame();
 
     void Start()
@@ -24,13 +26,9 @@ public class GameController : MonoBehaviour {
         var initialVelocity = gameObject.GetComponent<InitialVelocity>();
         MovingObject result;
         if (initialVelocity != null)
-        {
             result = new MovingObject(shape, initialVelocity.VelocityX, initialVelocity.VelocityY);
-        }
         else
-        {
             result = new MovingObject(shape, 0, 0);
-        }
         result.Bounces = bounces;
         return result;
     }
@@ -43,10 +41,11 @@ public class GameController : MonoBehaviour {
         var width = rectangleMesh.Width;
         var height = rectangleMesh.Height;
         return Rectangle.CreateFromCenter(x, y, width, height);
-    }    
+    }
 
     void Update()
     {
+        pongGame.LeftPaddle.VelocityY = Input.GetAxis("Vertical") * PaddlesSpeed;
         pongGame.Update(Time.deltaTime);
         updateViewComponents();
     }

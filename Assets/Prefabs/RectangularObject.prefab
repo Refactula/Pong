@@ -75,7 +75,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Width: 1
-  Height: 1
+  Height: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

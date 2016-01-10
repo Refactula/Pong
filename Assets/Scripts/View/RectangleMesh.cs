@@ -1,12 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[ExecuteInEditMode]
 public class RectangleMesh : MonoBehaviour {
 
     public float Width;
     public float Height;
 
     void Start()
+    {
+        initMesh();
+    }
+
+    void OnValidate()
+    {
+        initMesh();
+    }
+
+    private void initMesh()
     {
         GetComponent<MeshFilter>().mesh = createMesh();
     }
